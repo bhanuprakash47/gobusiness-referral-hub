@@ -3,9 +3,11 @@ import {useNavigate} from "react-router-dom"
 import axios from "axios";
 import Cookies from "js-cookie"
 
+import "./index.css"
+
 const Login=()=>{
     const [email,setEmail]=useState("")
-    const [password,setPassword]=useState("eresrs")
+    const [password,setPassword]=useState("")
     const [errMsg,setErrMsg]=useState("")
 
     const navigate=useNavigate()
@@ -66,7 +68,7 @@ const Login=()=>{
                             type="password"
                             id="password"
                             className="input-el"
-                            placeholder="password"
+                            placeholder="••••••"
                             value={password}
                             onChange={(event)=>{setPassword(event.target.value)}}
                         />
