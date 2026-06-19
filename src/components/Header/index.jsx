@@ -1,6 +1,8 @@
 import {Link,useNavigate } from "react-router-dom";
 import Cookies  from "js-cookie";
 
+import "./index.css"
+
 const Header=()=>{            
     const navigate=useNavigate()
 
@@ -12,7 +14,7 @@ const Header=()=>{
 
     return(
         <div className="header-container">
-            <div className="brand">
+            <div>
                 <Link to="/" aria-label="Go to dashboard home" className="header-heading">
                     Go Business
                 </Link>
