@@ -3,8 +3,15 @@ import axios from "axios"
 import Cookies from "js-cookie"
 
 import Header from "../Header"
+import Overview from "../Overview"
+import ServiceSummary from "../ServiceSummary"
+import Referral from "../Referral"
+import ReferralsTable from "../ReferralsTable"
+
 
 import "./index.css"
+
+
 
 const apiStatusList={
     initial:"INITIAL",
@@ -60,23 +67,47 @@ const Dashboard=()=>{
         )
     }
 
+    const SuccessView=()=>{
+        let overviewDetails=apiResponse.metrics 
+        console.log("over",overviewDetails)
+        let serviceSummary=apiResponse.serviceSummary
+        console.log("serviceSummary",serviceSummary)
+        let referral=apiResponse.referral
+        let  referralsList=apiResponse.referrals 
+        console.log("referralData",referralsList)
+
+
+        return(
+            <>
+                <Overview overviewDetails={overviewDetails}/>
+                {/* <ServiceSummary serviceSummary={serviceSummary}/>
+                <Referral referral={referral}/>
+                <ReferralsTable referralsList={referralsList}/> */}
+            </>
+        )
+    }
+
 
     return(
-        <>
+        <div className="dashboard-container">
             <Header/>
-            {(() => {
-                switch (apiStatus) {
-                    case apiStatusList.inProgress:
-                        return <LoadingView/>
-                    // case apiStatusList.failure:
-                    //     return <FailureView/>
-                    // case apiStatusList.success:
-                    //     return 
-                    default:
-                        return null
-                }
-            })()}
-        </>
+            <div className="dashboard-elements">
+                <h1 className="dashboard-heading">Referral Dashboard</h1>
+                <p className="dashboard-para">Track your referrals, earnings, and partner activity in one<br/> place.</p>
+                {(() => {
+                    switch (apiStatus) {
+                        case apiStatusList.inProgress:
+                            return <LoadingView/>
+                        // case apiStatusList.failure:
+                        //     return <FailureView/>
+                        case apiStatusList.success:
+                            return <SuccessView/>
+                        default:
+                            return null
+                    }
+                })()}
+            </div>
+        </div>
     )
 }
 
