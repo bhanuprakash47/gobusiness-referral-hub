@@ -68,7 +68,7 @@ const Login=()=>{
                             type="password"
                             id="password"
                             className="input-el"
-                            placeholder="••••••"
+                            placeholder="Enter Password"
                             value={password}
                             onChange={(event)=>{setPassword(event.target.value)}}
                         />
