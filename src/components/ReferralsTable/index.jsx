@@ -106,14 +106,6 @@ const ReferralsTable=(props)=>{
     }
 
 
-    const LoadingView=()=>{
-        return(
-            <div className="spinner-container">
-                <p className="loading-para">Loading...</p>
-                <div className="loading-spinner"></div>
-            </div>
-        )
-    }
 
 
     const SuccessView=()=>{
