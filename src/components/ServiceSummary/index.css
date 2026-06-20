@@ -1,0 +1,54 @@
+.dashboard-section-container{
+    width: 100%;
+    background-color: #ffffff;
+    border:none;
+    border-radius: 16px;
+    padding: 44px;
+    padding-top: 20px;
+    margin-top: 55px;
+    margin-bottom: 22px;
+}
+
+.dashboard-section-heading{
+    font-family: "Roboto";
+    font-size: 20px;
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 28px;
+}
+
+.summary-items{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.service-summary-item{
+    background-color: #F7F9FC;
+    width: 20%;
+    padding: 20px;
+    padding-left: 30px;
+    border:none;
+    border-radius: 16px;
+    margin-right: 18px;
+}
+
+.service-summary-item-para{
+    color: #6B7280;
+    font-family: "Roboto";
+    font-size: 12px; 
+    margin: 0px;  
+    margin-bottom: 10px; 
+}
+
+.service-summary-item-value{
+    font-family: "Roboto";
+    font-size: 18px;
+    margin: 0px;
+    color: #000000;        
+    font-weight: bolder;
+
+}
+
+.b{
+    color: #5560EA;
+}

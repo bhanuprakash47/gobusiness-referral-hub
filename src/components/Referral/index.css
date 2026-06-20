@@ -1,0 +1,73 @@
+.dashboard-section-container{
+    width: 100%;
+    background-color: #ffffff;
+    border:none;
+    border-radius: 16px;
+    padding: 44px;
+    padding-top: 20px;
+    margin-top: 55px;
+    margin-bottom: 22px;
+}
+
+.dashboard-section-heading{
+    font-family: "Roboto";
+    font-size: 20px;
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 28px;
+}
+
+.referral-items{
+    border: none;
+    display: flex;
+}
+
+.referral-item{
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+}
+
+.referral-item-title{
+    color:#6B7280;
+    font-family: "Roboto";
+    font-size: 12px;
+}
+
+.item-container{
+    display: flex;
+}
+
+.bg{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 40px;
+    background-color: #F7F9FC;
+    border: none;
+    border-radius: 17px;
+    padding-left: 18px;
+    width: 400px;
+    margin-right: 15px;
+}
+
+.item-container-value{
+    color:#000000;
+    font-family: "Roboto";
+    font-size: 15px;
+}
+
+.copy-button{
+    height: 35px;
+    width: 60px;
+    color:#ffffff;
+    font-family: "Roboto";
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background-color: #5560EA;
+}

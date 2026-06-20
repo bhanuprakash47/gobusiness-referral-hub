@@ -19,7 +19,7 @@ const Overview=(props)=>{
     ]              
     
     return(
-        <div className="dashboard-section-container">
+        <div className="dashboard-section-container" aria-label="Overview metrics">
             <h1 className="dashboard-section-heading">Overview</h1>
             <ul className="list">
                 {overviewDetails.map((each,index) => {

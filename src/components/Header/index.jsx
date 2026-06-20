@@ -13,9 +13,9 @@ const Header=()=>{
     }
 
     return(
-        <div className="header-container">
+        <div className="header-container" aria-label="Go to dashboard home">
             <div>
-                <Link to="/" aria-label="Go to dashboard home" className="header-heading">
+                <Link to="/" aria-label="Primary"  className="header-heading">
                     Go Business
                 </Link>
             </div>            

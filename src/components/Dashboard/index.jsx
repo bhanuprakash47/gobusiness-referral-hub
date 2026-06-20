@@ -80,9 +80,9 @@ const Dashboard=()=>{
         return(
             <>
                 <Overview overviewDetails={overviewDetails}/>
-                {/* <ServiceSummary serviceSummary={serviceSummary}/>
+                <ServiceSummary serviceSummary={serviceSummary}/>
                 <Referral referral={referral}/>
-                <ReferralsTable referralsList={referralsList}/> */}
+                <ReferralsTable referralsList={referralsList}/> 
             </>
         )
     }
