@@ -1,70 +1,156 @@
-# Getting Started with Create React App
+# GoBusiness Referral Hub
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+GoBusiness Referral Hub is a React-based referral dashboard application with a simple login flow, protected routes, and referral management screens.
 
-## Available Scripts
+It lets a user sign in, view dashboard metrics, search and sort referrals, open referral details, and log out securely using a JWT stored in cookies.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- Email and password login
+- JWT-based authentication using cookies
+- Protected dashboard and referral details pages
+- Referral overview cards and service summary section
+- Search, sort, and pagination in the referrals table
+- Individual referral detail view
+- Loading and error states
+- Not Found page for invalid routes
+- Logout support from the header
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React
+- React Router DOM
+- Axios
+- js-cookie
+- React Icons
+- Create React App
+- CSS
 
-### `npm test`
+## Project structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+src/
+├── App.js
+├── App.css
+├── App.test.js
+├── index.js
+├── index.css
+├── reportWebVitals.js
+├── setupTests.js
+└── components/
+    ├── Dashboard/
+    │   ├── index.jsx
+    │   └── index.css
+    ├── Header/
+    │   ├── index.jsx
+    │   └── index.css
+    ├── Login/
+    │   ├── index.jsx
+    │   └── index.css
+    ├── NotFound/
+    │   ├── index.jsx
+    │   └── index.css
+    ├── Overview/
+    │   ├── index.jsx
+    │   └── index.css
+    ├── Referral/
+    │   ├── index.jsx
+    │   └── index.css
+    ├── ReferralDetails/
+    │   ├── index.jsx
+    │   └── index.css
+    ├── ReferralsTable/
+    │   ├── index.jsx
+    │   └── index.css
+    ├── ServiceSummary/
+    │   ├── index.jsx
+    │   └── index.css
+    ├── LoadingView/
+    │   ├── index.jsx
+    │   └── index.css
+    └── FailureView/
+        ├── index.jsx
+        └── index.css
+```
 
-### `npm run build`
+## How it works
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Login
+The login page accepts an email and password, calls the sign-in API, and stores the returned JWT token in a cookie for 7 days. If the user is already logged in, the app redirects them to the dashboard.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Protected routes
+The dashboard and referral details pages are protected. If the `jwt_token` cookie is missing, the app redirects the user back to `/login`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Dashboard
+The dashboard fetches referral data from the API and displays:
+- overview metrics
+- service summary
+- referral link and code
+- referrals table
 
-### `npm run eject`
+The table supports:
+- search
+- sort by date
+- pagination
+- navigation to referral details
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Referral details
+Each referral can be opened using its ID from the URL. The page shows the selected partner’s full details in a clean card layout.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Header
+The header contains the Go Business brand, a “Try for free” button, and a logout button that clears the cookie and sends the user back to the login page.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## API endpoints used
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- `POST /api/auth/signin`
+- `GET /api/referrals`
+- `GET /api/referrals?id=:id`
+- `GET /api/referrals?search=:query&sort=:order`
 
-## Learn More
+## Installation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+git clone https://github.com/bhanuprakash47/gobusiness-referral-hub.git
+cd gobusiness-referral-hub
+npm install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Run the project
 
-### Code Splitting
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This runs the app in development mode, usually at `http://localhost:3000`.
 
-### Analyzing the Bundle Size
+## Run tests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+npm test
+```
 
-### Making a Progressive Web App
+## Build for production
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+npm run build
+```
 
-### Advanced Configuration
+## Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- The app uses client-side routing with React Router DOM.
+- Authentication is handled through cookies, not local storage.
+- The default test file is still present and can be expanded later.
+- The UI is split into small reusable components, which makes the code easy to maintain.
 
-### Deployment
+## Future improvements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Add copy-to-clipboard for referral link and code
+- Improve the test coverage
+- Add better empty state handling
+- Add charts for referral performance
+- Add mobile-friendly refinements
+- Move API base URLs into environment variables
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Built to keep referral tracking simple, organized, and easy to use.
