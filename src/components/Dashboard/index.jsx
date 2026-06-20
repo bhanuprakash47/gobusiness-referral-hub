@@ -9,6 +9,8 @@ import Referral from "../Referral"
 import ReferralsTable from "../ReferralsTable"
 
 
+import LoadingView from "../LoadingView"
+import FailureView from "../FailureView"
 import "./index.css"
 
 
@@ -26,6 +28,7 @@ const apiStatusList={
 const Dashboard=()=>{
     const [apiResponse,setApIResponse]=useState({})
     const [apiStatus,setApiStatus]=useState(apiStatusList.initial)
+    const [errMsg,setErrMsg]=useState("")
 
     useEffect(()=>{
         const fetchReferrals=async()=>{
@@ -50,6 +53,14 @@ const Dashboard=()=>{
              
             }
             catch(err){
+                const status = err?.response?.status
+                const message =
+                    err?.response?.data?.message ||
+                    err?.response?.data?.error ||
+                    err?.message ||
+                    "Request failed"
+
+                setErrMsg(status ? `${message} (${status})` : message)
                 setApiStatus(apiStatusList.failure)
                 console.log("error",err)
             }
@@ -58,14 +69,7 @@ const Dashboard=()=>{
     },[])
 
 
-    const LoadingView=()=>{
-        return(
-            <div className="spinner-container">
-                <p className="loading-para">Loading...</p>
-                <div className="loading-spinner"></div>
-            </div>
-        )
-    }
+    
 
     const SuccessView=()=>{
         let overviewDetails=apiResponse.metrics 
@@ -77,6 +81,8 @@ const Dashboard=()=>{
         console.log("referralData",referralsList)
 
 
+       
+
         return(
             <>
                 <Overview overviewDetails={overviewDetails}/>
@@ -87,26 +93,52 @@ const Dashboard=()=>{
         )
     }
 
+    
+    
+    
+    const Footer = () => {
+        return (
+            <div className="footer-container" aria-label="Footer">
+                <a href="/" className="footer-brand">
+                    Go Business
+                </a>
+
+                <nav className="footer-nav" aria-label="Footer">
+                    <a href="#about" className="footer-link">About</a>
+                    <a href="#contact" className="footer-link">Contact</a>
+                    <a href="#privacy" className="footer-link">Privacy</a>
+                    <a href="#terms" className="footer-link">Terms</a>
+                </nav>
+    
+
+                <p className="footer-copyright">© 2024 Go Business</p>
+            </div>
+        )
+    }
+
 
     return(
-        <div className="dashboard-container">
-            <Header/>
-            <div className="dashboard-elements">
-                <h1 className="dashboard-heading">Referral Dashboard</h1>
-                <p className="dashboard-para">Track your referrals, earnings, and partner activity in one<br/> place.</p>
-                {(() => {
-                    switch (apiStatus) {
-                        case apiStatusList.inProgress:
-                            return <LoadingView/>
-                        // case apiStatusList.failure:
-                        //     return <FailureView/>
-                        case apiStatusList.success:
-                            return <SuccessView/>
-                        default:
-                            return null
-                    }
-                })()}
+        <div className="divEl">
+            <div className="dashboard-container">
+                <Header/>
+                <div className="dashboard-elements">
+                    <h1 className="dashboard-heading">Referral Dashboard</h1>
+                    <p className="dashboard-para">Track your referrals, earnings, and partner activity in one<br/> place.</p>
+                    {(() => {
+                        switch (apiStatus) {
+                            case apiStatusList.inProgress:
+                                return <LoadingView/>
+                            case apiStatusList.failure:
+                                return <FailureView message={errMsg}/>
+                            case apiStatusList.success:
+                                return <SuccessView/>
+                            default:
+                                return null
+                        }
+                    })()}
+                </div>
             </div>
+            <Footer width={100}/>
         </div>
     )
 }

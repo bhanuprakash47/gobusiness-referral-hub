@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./components/Login"
 import Dashboard from "./components/Dashboard";
+import ReferralDetails from "./components/ReferralDetails"
+import NotFound from "./components/NotFound"
 
 import Cookies from "js-cookie";
 
@@ -18,14 +20,22 @@ const App=()=>{
     <Routes>
       <Route path="/login" element={<Login/>}/>
       <Route 
-        path="/" 
+        path="/"
           element={
             <ProtectedRoute>
               <Dashboard />
            </ProtectedRoute>
           }
       />
-
+      <Route 
+        path="/referrals/:id"
+        element={
+          <ProtectedRoute>
+            <ReferralDetails/>
+          </ProtectedRoute>
+        }
+      />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>
  )

@@ -1,0 +1,15 @@
+.failure-view-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.message{
+    font-family: "Roboto";
+    font-size: 25px;
+    color:red;
+    font-weight: 800;
+}

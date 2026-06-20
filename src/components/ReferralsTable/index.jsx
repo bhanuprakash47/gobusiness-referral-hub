@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import Cookies from "js-cookie"
+
+import LoadingView from "../LoadingView"
+import FailureView from "../FailureView"
+
 
 import "./index.css"
 
@@ -16,6 +21,7 @@ const ReferralsTable=(props)=>{
     const [searchVal,updateSearchVal]=useState('')
     const [sortOrder,updateSortOrder]=useState("desc")
     const [apiStatus,setApiStatus]=useState(apiStatusList.initial)
+    const [errorMsg,setErrMsg]=useState("")
 
     const [pageNo,setPageNo]=useState(1)
     const [startIndex,setStartIndex]=useState(0)
@@ -23,6 +29,7 @@ const ReferralsTable=(props)=>{
     const totalEntries = (tableList || []).length
     const totalPages = Math.max(1, Math.ceil(totalEntries / pageSize))
 
+    const navigate=useNavigate()
 
       
 
@@ -48,6 +55,14 @@ const ReferralsTable=(props)=>{
                     setPageNo(1)
                 }
             }catch(err){
+                    const status = err?.response?.status
+                    const message =
+                        err?.response?.data?.message ||
+                        err?.response?.data?.error ||
+                        err?.message ||
+                        "Request failed"
+
+                    setErrMsg(status ? `${message} (${status})` : message)
                 setApiStatus(apiStatusList.failure)
                 console.log("error fetching",err)
             }
@@ -90,6 +105,62 @@ const ReferralsTable=(props)=>{
         return (tableList || []).slice(startIndex, startIndex + pageSize)
     }
 
+
+    const LoadingView=()=>{
+        return(
+            <div className="spinner-container">
+                <p className="loading-para">Loading...</p>
+                <div className="loading-spinner"></div>
+            </div>
+        )
+    }
+
+
+    const SuccessView=()=>{
+        return(
+            <>
+                 <table className="table">
+                <thead>
+                    <tr className="table-header">
+                        <th className="table-header-cell">NAME</th>
+                        <th className="table-header-cell">SERVICE</th>
+                        <th className="table-header-cell">DATE</th>
+                        <th className="table-header-cell">PROFIT</th>                    
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {gettableListByPageNo().map((each,index)=>(
+                        <tr onClick={()=>{navigate(`/referrals/${each.id}`)}} key={each.id} className={`data-row ${index%2===0?"even":"odd"}`}>
+                            <td className="data-row-cell">{each.name}</td>
+                            <td className="data-row-cell">{each.serviceName}</td>
+                            <td className="data-row-cell">{formatDate(each.date)}</td>
+                            <td className="data-row-cell">${`${each.profit}`}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+                <div className="table-container-footer">
+                    {(() => {
+                        const start = totalEntries === 0 ? 0 : startIndex + 1
+                        const end = Math.min(startIndex + pageSize, totalEntries)
+                        return (
+                            <p className="page-entries">Showing {start}-{end} of {totalEntries} entries</p>
+                        )
+                    })()}
+                    <div className="pages-navigations-buttons-container">
+                        <button onClick={onClickPrevBtn} type="button" className="nav-buttons" disabled={pageNo===1}>Previous</button>
+                        <button onClick={()=>{onClickNo(1)}} type="button" className={`pageNo-button ${pageNo===1? 'active':''}`}>1</button>
+                        <button onClick={()=>{onClickNo(2)}} type="button" className={`pageNo-button ${pageNo===2? 'active':''}`}>2</button>
+                        <button onClick={()=>{onClickNo(3)}} type="button" className={`pageNo-button ${pageNo===3? 'active':''}`}>3</button>
+                        <button onClick={()=>{onClickNo(4)}} type="button" className={`pageNo-button ${pageNo===4? 'active':''}`}>4</button>
+                        <button onClick={()=>{onClickNo(5)}} type="button" className={`pageNo-button ${pageNo===5? 'active':''}`}>5</button>
+                        <button onClick={onClickNextBtn} type="button" className="nav-buttons" disabled={pageNo===totalPages || totalEntries===0}>Next</button>
+                    </div>
+                </div>
+            </>
+        )
+    }
     
     return(
         <div className="table-container">
@@ -117,48 +188,22 @@ const ReferralsTable=(props)=>{
                     </select>
                 </div>
             </div>
-            <table className="table">
-                <thead>
-                    <tr className="table-header">
-                        <th className="table-header-cell">NAME</th>
-                        <th className="table-header-cell">SERVICE</th>
-                        <th className="table-header-cell">DATE</th>
-                        <th className="table-header-cell">PROFIT</th>                    
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {gettableListByPageNo().map((each,index)=>(
-                        <tr key={each.id} className={`data-row ${index%2===0?"even":"odd"}`}>
-                            <td className="data-row-cell">{each.name}</td>
-                            <td className="data-row-cell">{each.serviceName}</td>
-                            <td className="data-row-cell">{formatDate(each.date)}</td>
-                            <td className="data-row-cell">${`${each.profit}`}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-                <div className="table-container-footer">
-                    {(() => {
-                        const start = totalEntries === 0 ? 0 : startIndex + 1
-                        const end = Math.min(startIndex + pageSize, totalEntries)
-                        return (
-                            <p className="page-entries">Showing {start}-{end} of {totalEntries} entries</p>
-                        )
-                    })()}
-                    <div className="pages-navigations-buttons-container">
-                        <button onClick={onClickPrevBtn} type="button" className="nav-buttons" disabled={pageNo===1}>Previous</button>
-                        <button onClick={()=>{onClickNo(1)}} type="button" className={`pageNo-button ${pageNo===1? 'active':''}`}>1</button>
-                        <button onClick={()=>{onClickNo(2)}} type="button" className={`pageNo-button ${pageNo===2? 'active':''}`}>2</button>
-                        <button onClick={()=>{onClickNo(3)}} type="button" className={`pageNo-button ${pageNo===3? 'active':''}`}>3</button>
-                        <button onClick={()=>{onClickNo(4)}} type="button" className={`pageNo-button ${pageNo===4? 'active':''}`}>4</button>
-                        <button onClick={()=>{onClickNo(5)}} type="button" className={`pageNo-button ${pageNo===5? 'active':''}`}>5</button>
-                        <button onClick={onClickNextBtn} type="button" className="nav-buttons" disabled={pageNo===totalPages || totalEntries===0}>Next</button>
-                    </div>
-                </div>
+            {(() => {
+                switch (apiStatus) {
+                    case apiStatusList.inProgress:
+                        return <LoadingView/>
+                    case apiStatusList.failure:
+                        return <FailureView message={errorMsg}/>
+                    case apiStatusList.success:
+                        return <SuccessView/>
+                    default:
+                        return null
+                }
+            })()}
 
                 
         </div>
+
     )
 
 }
