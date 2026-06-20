@@ -1,0 +1,67 @@
+.dashboard-section-container{
+    width: 100%;
+    background-color: #ffffff;
+    border:none;
+    border-radius: 16px;
+    padding: 44px;
+    padding-top: 20px;
+    margin-top: 55px;
+    margin-bottom: 22px;
+}
+
+.dashboard-section-heading{
+    font-family: "Roboto";
+    font-size: 20px;
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 28px;
+}
+
+.list{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.overview-element{
+    background: linear-gradient(300deg, #ffffff 0%, #F7F9FC 100%);
+    border: 1px solid #E6EAF2;
+    border-radius: 12px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    min-height: 100px;
+    box-sizing: border-box;
+    margin-right: 28px;
+}
+
+.icon-container{
+    background-color: #5560EA;
+    height: 20px;
+    text-align: center;
+    width: 20px;
+    padding: 4px;
+    margin-bottom:15px;
+    gap: 0px;
+    border:none;
+    border-radius: 8px;
+}
+
+.overview-label-value{
+    margin: 0px;
+    color: #000000;
+    font-family: "Roboto";
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.overview-label{
+    margin: 0px;
+    color: #6B7280;
+    font-family: "Roboto";
+    font-size: 16px;
+}
